@@ -1,4 +1,3 @@
-# Lawww
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -32,10 +31,10 @@
         .btn { background: var(--law-red); color: white; border: 1px solid var(--gold); padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .btn:active { transform: scale(0.98); opacity: 0.8; }
 
-        /* 課表專用 CSS */
-        #timetable-table { width:100%; border-collapse: collapse; font-size: 0.75rem; min-width: 450px; }
-        #timetable-table td { border: 1px solid #333; height: 45px; text-align: center; cursor: pointer; padding: 2px; }
-        #timetable-table td:hover { background: #1a1a1a; }
+        /* 課表專用 CSS - 移除背景色，直接使用卡片背景 */
+        #timetable-table { width:100%; border-collapse: collapse; font-size: 0.75rem; min-width: 450px; background: transparent; }
+        #timetable-table td { border: 1px solid #333; height: 45px; text-align: center; cursor: pointer; padding: 2px; background: transparent; }
+        #timetable-table td:hover { background: rgba(255, 255, 255, 0.05); }
         #timetable-table th { color: var(--gold); padding: 8px 0; border-bottom: 2px solid var(--gold); }
 
         /* 筆記專用 CSS */
@@ -122,7 +121,7 @@
             </thead>
             <tbody id="timetable-body"></tbody>
         </table>
-        <p style="font-size: 0.7rem; color: #666; margin-top: 10px;">* 點擊儲存格編輯內容</p>
+        <p style="font-size: 0.7rem; color: #666; margin-top: 10px; text-align: center;">* 點擊儲存格編輯內容</p>
     </div>
 </div>
 
@@ -205,7 +204,6 @@
         const saved = localStorage.getItem("LAW_V17_FINAL");
         if(saved) state = JSON.parse(saved);
         
-        // 介面初始化
         document.getElementById('font-select').value = state.font;
         document.getElementById('set-goal').value = state.goal;
         document.getElementById('set-date').value = state.date;
@@ -219,7 +217,6 @@
         updateDDay();
     }
 
-    // 核心邏輯
     function tab(id) {
         document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
@@ -249,7 +246,6 @@
 
     function closeOverlay(id) { document.getElementById(id).style.display = 'none'; }
 
-    // 條文與任務
     function getDailyCase() {
         state.currentLaw = lawPedia[state.caseIndex % lawPedia.length];
         state.lastCaseDate = new Date().toDateString();
@@ -297,7 +293,6 @@
         `).join('');
     }
 
-    // 課表系統
     function renderTimetable() {
         const hours = ["早讀", "01", "02", "03", "04", "午休", "05", "06", "07", "08", "晚自習"];
         let html = "";
@@ -317,7 +312,6 @@
         if (val !== null) { state.tt[id] = val; renderTimetable(); saveData(); }
     }
 
-    // 筆記系統
     function previewImage(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
@@ -357,7 +351,6 @@
 
     function deleteNote(id) { if(confirm("銷毀此卷宗？")) { state.notes = state.notes.filter(n=>n.id!==id); renderNotes(); saveData(); } }
 
-    // UI 更新
     function renderUI() {
         let need = Math.floor(100 * Math.pow(1.2, state.lv-1));
         document.getElementById("lv-num").innerText = "LV." + (state.lv<10?'0'+state.lv:state.lv);
