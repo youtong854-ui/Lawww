@@ -35,7 +35,7 @@
         /* 課表專用 CSS */
         #timetable-table { width:100%; border-collapse: collapse; font-size: 0.75rem; min-width: 450px; }
         #timetable-table td { border: 1px solid #333; height: 45px; text-align: center; cursor: pointer; padding: 2px; }
-        #timetable-table td:hover { background: rgba(212, 175, 55, 0.1); }
+        #timetable-table td:hover { background: #1a1a1a; }
         #timetable-table th { color: var(--gold); padding: 8px 0; border-bottom: 2px solid var(--gold); }
 
         /* 筆記專用 CSS */
